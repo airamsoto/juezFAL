@@ -1,0 +1,139 @@
+## This file contains all the build statements describing the
+# compilation DAG.
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# 
+# Which is the root file.
+# =============================================================================
+
+# =============================================================================
+# Project: juez
+# Configurations: Debug
+# =============================================================================
+
+#############################################
+# Minimal version of Ninja required by this file
+
+ninja_required_version = 1.5
+
+
+#############################################
+# Set configuration variable for custom commands.
+
+CONFIGURATION = Debug
+# =============================================================================
+# Include auxiliary files.
+
+
+#############################################
+# Include rules file.
+
+include CMakeFiles/rules.ninja
+
+# =============================================================================
+
+#############################################
+# Logical path to working directory; prefix for absolute paths.
+
+cmake_ninja_workdir = /Users/airamxl9/universidad/FAL/juez/cmake-build-debug/
+# =============================================================================
+# Object build statements for EXECUTABLE target juez
+
+
+#############################################
+# Order-only phony target for juez
+
+build cmake_object_order_depends_target_juez: phony || CMakeFiles/juez.dir
+
+build CMakeFiles/juez.dir/problema8.cpp.o: CXX_COMPILER__juez_Debug /Users/airamxl9/universidad/FAL/juez/problema8.cpp || cmake_object_order_depends_target_juez
+  DEP_FILE = CMakeFiles/juez.dir/problema8.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -std=gnu++14
+  OBJECT_DIR = CMakeFiles/juez.dir
+  OBJECT_FILE_DIR = CMakeFiles/juez.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target juez
+
+
+#############################################
+# Link the executable juez
+
+build juez: CXX_EXECUTABLE_LINKER__juez_Debug CMakeFiles/juez.dir/problema8.cpp.o
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk
+  OBJECT_DIR = CMakeFiles/juez.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = juez
+  TARGET_PDB = juez.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/airamxl9/universidad/FAL/juez/cmake-build-debug && /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/airamxl9/universidad/FAL/juez/cmake-build-debug && /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/airamxl9/universidad/FAL/juez -B/Users/airamxl9/universidad/FAL/juez/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Target aliases.
+
+# =============================================================================
+# Folder targets.
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/airamxl9/universidad/FAL/juez/cmake-build-debug
+
+build all: phony juez
+
+# =============================================================================
+# Built-in targets
+
+
+#############################################
+# Re-run CMake if any of its inputs changed.
+
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCInformation.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-C.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-CXX.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/Clang.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-C.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-CXX.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-C.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-CXX.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin-Initialize.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake
+  pool = console
+
+
+#############################################
+# A missing CMake input file is not an error.
+
+build ../CMakeLists.txt /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCInformation.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-C.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-CXX.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/Clang.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-C.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-CXX.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-C.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-CXX.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin-Initialize.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin.cmake /private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake: phony
+
+
+#############################################
+# Clean all the built files.
+
+build clean: CLEAN
+
+
+#############################################
+# Print all primary targets available.
+
+build help: HELP
+
+
+#############################################
+# Make the all target the default.
+
+default all
