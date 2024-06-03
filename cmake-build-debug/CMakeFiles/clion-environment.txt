@@ -1,3 +1,4 @@
-ToolSet: 1.0 (local)Options: 
+ToolSet: w64 9.0 (local)@C:\Program Files\JetBrains\CLion 2022.3.2\bin\mingw
+Options: 
 
-Options:-DCMAKE_MAKE_PROGRAM=/private/var/folders/w_/y1rv892x69sfgdgkjnwhng0c0000gn/T/AppTranslocation/1ACE2324-5EBB-4007-B0BD-549A25ADD3AF/d/CLion.app/Contents/bin/ninja/mac/ninja
+Options:-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2022.3.2/bin/ninja/win/x64/ninja.exe
