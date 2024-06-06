@@ -3,4 +3,4 @@ project(juez)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(juez x22.cpp)
+add_executable(juez x26.cpp)
