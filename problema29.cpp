@@ -2,36 +2,33 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+
 using namespace std;
 
 
 typedef struct {
     int canicas;
     string nombre;
-}tJugador;
+} tJugador;
 
 
-string torneo(const vector <tJugador> &jugadores, int inicio, int final,  int &cantidad) {
-    if(inicio == final) {
-        if(jugadores[inicio].canicas >= jugadores[final].canicas) {
-            cantidad = jugadores[inicio].canicas;
-            return jugadores[inicio].nombre;
-        } else {
-            cantidad = jugadores[final].canicas;
-            return jugadores[final].nombre;
-        }
+string torneo(const vector<tJugador> &jugadores, int inicio, int final, int &cantidad) {
+    if (inicio == final) {
+
+        cantidad = jugadores[inicio].canicas;
+        return jugadores[inicio].nombre;
+
     } else {
         int medio = (final + inicio) / 2;
-        int cantidadIzq =0;
-        int cantidadDer=0;
-        string ganadorIzq =  torneo(jugadores, inicio, medio, cantidadIzq);
-        string ganadorDer = torneo(jugadores, medio+1, final, cantidadDer);
-        if(cantidadIzq >= cantidadDer) {
-            cantidad += cantidadIzq+ cantidadDer/2;
+        int cantidadIzq = 0;
+        int cantidadDer = 0;
+        string ganadorIzq = torneo(jugadores, inicio, medio, cantidadIzq);
+        string ganadorDer = torneo(jugadores, medio + 1, final, cantidadDer);
+        if (cantidadIzq >= cantidadDer) {
+            cantidad += cantidadIzq + cantidadDer / 2;
             return ganadorIzq;
-        }
-        else {
-            cantidad += cantidadDer +cantidadIzq/2;
+        } else {
+            cantidad += cantidadDer + cantidadIzq / 2;
             return ganadorDer;
         }
     }
@@ -44,15 +41,15 @@ bool resuelveCaso() {
     if (!std::cin)
         return false;
 
-    vector<tJugador> jugadores (f);
+    vector<tJugador> jugadores(f);
 
 
     for (int i = 0; i < f; ++i) {
         cin >> jugadores[i].nombre;
         cin >> jugadores[i].canicas;
     }
-    int cantidad =0;
-    string ganador = torneo(jugadores, 0, f-1, cantidad);
+    int cantidad = 0;
+    string ganador = torneo(jugadores, 0, f - 1, cantidad);
     cout << ganador << " " << cantidad << endl;
 
 
