@@ -3,7 +3,9 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+
 using namespace std;
+
 /*
  * T(0) c1 si n == 1
  *
@@ -13,33 +15,30 @@ using namespace std;
  * recursion por lo que el coste de la funcion ganador es log n siendo n el numero de
  * elementos que presenta el carton
  */
-bool ganador (const vector<int >&v, int cantado, int ini, int fin, int&ganado) {
+bool ganador (const vector<int>& v, int cantado, int &ganado, int ini, int fin)  {
     if(ini == fin) {
-        if(cantado + ini == v[ini]) {
-            ganado = v[ini];
-            return true;
-        } else return false;
+        ganado = v[ini];
+        return cantado+ini == v[ini];
     } else {
-        int m = (ini + fin)/2;
-        if(v[m] < cantado + m) {
-            return ganador(v, cantado, m+1, fin , ganado);
-        } else return ganador(v, cantado, ini, m, ganado);
+        int m = (ini + fin) / 2;
+        if(v[m] >= cantado + m) {
+            return ganador(v, cantado, ganado, ini, m);
+        } else return ganador(v, cantado, ganado, m+1, fin);
     }
-
 }
 
 void resuelveCaso() {
     int cantado, carton;
-    cin  >> carton >> cantado;
+    cin >> carton >> cantado;
     vector<int> v(carton);
     for (int i = 0; i < carton; ++i) {
         cin >> v[i];
     }
+    int ganado;
+    if(ganador(v, cantado, ganado, 0, carton-1)) cout << ganado << '\n';
+    else cout << "NO" << '\n';
 
-    int ganado = 0;
 
-    if(ganador(v, cantado, 0, carton-1, ganado)) cout << ganado << '\n';
-    else cout << "NO" << '\n';;
 }
 
 

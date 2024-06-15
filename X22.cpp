@@ -5,18 +5,17 @@
 #include <fstream>
 using namespace std;
 
-int valorMinimoCurva (const vector<int>& v, int ini, int fin) {
-    if(ini == fin) {
-        return v[ini];
-    } else {
-        int m = (ini + fin) / 2;
-        if(v[m] < v[m+1]) {
-            return valorMinimoCurva(v, ini, m);
-        } else {
-            return valorMinimoCurva(v, m+1 , fin);
-        }
+
+int minimo (const vector<int> &v, int ini, int fin) {
+    if(ini == fin ) return v[ini];
+    else {
+        int m = (fin + ini)/2;
+        if(v[m] > v[m+1]) {
+            return minimo(v, m+1, fin);
+        } else return minimo(v, ini, m);
     }
 }
+
 
 bool resuelveCaso() {
 
@@ -28,11 +27,7 @@ bool resuelveCaso() {
     for (int i = 0; i < n; ++i) {
         cin >> v[i];
     }
-
-
-    cout << valorMinimoCurva(v, 0, n-1) << '\n';
-
-
+    cout << minimo(v, 0, n-1) << '\n';
 
     return true;
 }

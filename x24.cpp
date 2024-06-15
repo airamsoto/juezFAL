@@ -5,16 +5,18 @@
 #include <fstream>
 using namespace std;
 
-
-int minimoDelVector (const vector<int>& v, int ini, int fin) {
+int calcularMinimoRotado (const vector<int>& v, int ini, int fin) {
     if(ini == fin) return v[ini];
     else {
-        int m = (ini + fin) / 2;
-        if(v[m] < v[ini]) {
-            return minimoDelVector(v, m, fin);
-        } else return minimoDelVector(v, ini, m);
+        int m = (ini + fin) /2;
+        if (v[ini] > v[m]) {
+            return calcularMinimoRotado(v, m, fin);
+        } else return calcularMinimoRotado(v, ini, m);
     }
 }
+
+
+
 bool resuelveCaso() {
 
     int n;
@@ -25,8 +27,8 @@ bool resuelveCaso() {
     for (int i = 0; i < n; ++i) {
         cin >> v[i];
     }
+    cout << calcularMinimoRotado(v, 0, n) << '\n';
 
-    cout << minimoDelVector(v, 0, n) << '\n';
 
 
 
