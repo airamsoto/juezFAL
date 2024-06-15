@@ -49,8 +49,8 @@ cmake_ninja_workdir = C$:/Users/airam/git/juezFAL/cmake-build-debug/
 
 build cmake_object_order_depends_target_juez: phony || CMakeFiles/juez.dir
 
-build CMakeFiles/juez.dir/x105OrdinariaDivideYVenceras.cpp.obj: CXX_COMPILER__juez_Debug C$:/Users/airam/git/juezFAL/x105OrdinariaDivideYVenceras.cpp || cmake_object_order_depends_target_juez
-  DEP_FILE = CMakeFiles\juez.dir\x105OrdinariaDivideYVenceras.cpp.obj.d
+build CMakeFiles/juez.dir/x23.cpp.obj: CXX_COMPILER__juez_Debug C$:/Users/airam/git/juezFAL/x23.cpp || cmake_object_order_depends_target_juez
+  DEP_FILE = CMakeFiles\juez.dir\x23.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always -std=gnu++14
   OBJECT_DIR = CMakeFiles\juez.dir
   OBJECT_FILE_DIR = CMakeFiles\juez.dir
@@ -63,7 +63,7 @@ build CMakeFiles/juez.dir/x105OrdinariaDivideYVenceras.cpp.obj: CXX_COMPILER__ju
 #############################################
 # Link the executable juez.exe
 
-build juez.exe: CXX_EXECUTABLE_LINKER__juez_Debug CMakeFiles/juez.dir/x105OrdinariaDivideYVenceras.cpp.obj
+build juez.exe: CXX_EXECUTABLE_LINKER__juez_Debug CMakeFiles/juez.dir/x23.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\juez.dir

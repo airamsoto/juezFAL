@@ -1,27 +1,22 @@
-
-
 #include <iostream>
 #include <vector>
 #include <fstream>
 using namespace std;
 
-char presoFugado (const vector<char> &v, char letraInicio, int ini, int fin) {
+char presoFugado (const vector<char> &v, char letraIni, int ini, int fin) {
     if(ini == fin) {
-        if(v[ini] - letraInicio == ini) return v[ini]  + 1;
+        if(v[ini] - letraIni == ini) return v[ini]  + 1;
         else return v[ini] - 1;
 
+
     } else {
-        int mitad = (fin+ ini) / 2;
-        char valorMedio = v[mitad];
-        if(valorMedio != letraInicio + mitad) {
-            return presoFugado(v, letraInicio, ini, mitad);
-
-        } else return presoFugado(v, letraInicio, mitad+1, fin);
+        int m = (ini + fin) / 2;
+        char letraMedio = v[m];
+        if(letraIni + m  == letraMedio) {
+            return presoFugado(v, letraIni, m+1, fin);
+        } else return presoFugado(v, letraIni, ini, m);
     }
-
-
 }
-
 void resuelveCaso() {
     char letraIni, letraFin;
     cin >>letraIni >> letraFin;

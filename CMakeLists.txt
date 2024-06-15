@@ -3,4 +3,4 @@ project(juez)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(juez x105OrdinariaDivideYVenceras.cpp)
+add_executable(juez x23.cpp)

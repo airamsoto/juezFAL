@@ -5,16 +5,16 @@
 #include <fstream>
 using namespace std;
 
-int valorMinimoConcava (const vector<int> & v, int ini, int fin) {
+int valorMinimoCurva (const vector<int>& v, int ini, int fin) {
     if(ini == fin) {
         return v[ini];
     } else {
-        int m = (fin + ini)/ 2;
-        int valorMitad = v[m];
-        if(valorMitad > v[m+1]) {
-            return valorMinimoConcava(v, m+1, fin);
-        } else return valorMinimoConcava(v, ini, m);
-
+        int m = (ini + fin) / 2;
+        if(v[m] < v[m+1]) {
+            return valorMinimoCurva(v, ini, m);
+        } else {
+            return valorMinimoCurva(v, m+1 , fin);
+        }
     }
 }
 
@@ -29,7 +29,8 @@ bool resuelveCaso() {
         cin >> v[i];
     }
 
-    cout << valorMinimoConcava(v, 0 , n-1) << '\n';
+
+    cout << valorMinimoCurva(v, 0, n-1) << '\n';
 
 
 
