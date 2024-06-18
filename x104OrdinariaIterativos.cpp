@@ -4,27 +4,27 @@
 //airam martin soto E37
 using namespace std;
 
-int iguales (const vector<int>& v, int l) {
-    int actual  , mejor = 0, contador = 0;
-    actual = v[0];
+int iguales (const vector<int> &v, int l) {
+    int prev = v[0], contador = 0, r = 0;
     for (int i = 0; i < v.size(); ++i) {
-        if(actual == v[i]) {
+        if (v[i] == prev) {
             contador++;
             if(contador >= l) {
-                int diferencia = contador - l + 1;
-                mejor += diferencia;
+                r += contador - l + 1;
             }
 
         } else {
-            actual = v[i];
+            prev = v[i];
             contador = 1;
             if(contador >= l) {
-                mejor++;
+                r += contador - l + 1;
             }
         }
+
     }
-    return mejor;
+    return r;
 }
+
 
 
 void resuelveCaso() {

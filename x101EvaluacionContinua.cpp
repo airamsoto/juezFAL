@@ -23,38 +23,40 @@ using namespace std;
  *
  */
 
-//falta el predicado todo pares todosPares(v, p, q
+//falta el predicado todo pares todosPares(v, p, q)
 
-int segmentosConImpares (const vector<int>&v,int k, int l) {
-    int impares = 0, segmentos = 0, contador = 0;
+
+int segmentosDeImpares (const vector<int>& v, int k, int l) {
+    int contador = 0, impares = 0, r = 0;
     for (int i = 0; i < v.size(); ++i) {
         contador++;
-        if(v[i] % 2 != 0) impares++;
-        if (contador == k) {
-            if(impares <= l) {
-                segmentos++;
-            }
-            if(v[i-contador+1] % 2 != 0) impares--;
+        if (v[i] % 2 != 0) impares++;
+        if(contador == k) {
+            if(impares <= l) r++;
+            if(v[i-k+1] % 2 != 0) impares--;
             contador--;
         }
-    }
-    return segmentos;
 
+    }
+
+    return r;
+    
 }
+
+
 
 void resuelveCaso() {
     int n, l, k;
     cin >> n >> k >> l;
-    int aux;
-    vector<int> v;
+
+    vector<int> v(n);
     for (int i = 0; i < n; ++i) {
-        cin >> aux;
-        v.push_back(aux);
+        cin >> v[i];
+
     }
 
-    if(k == 0) cout << n + 1 << '\n';
-    else cout << segmentosConImpares(v, k, l) << '\n';
-
+    if (k == 0) cout << n +1 << '\n';
+    else cout << segmentosDeImpares (v,k,l) << '\n';
 
 
 }

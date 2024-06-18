@@ -3,21 +3,24 @@
 #include <fstream>
 using namespace std;
 
-
-
-char presoFugado (const vector<char> & v, int ini, int fin, char letraIni) {
-    if(ini == fin) {
-        if(v[ini] - letraIni == ini) return v[ini] + 1;
-        else return v[ini] - 1;
+char letraFugada (const vector<char>& v, int ini, int fin, char letraIni) {
+    if(ini == fin - 1) {
+        if(letraIni + ini != v[ini]) return v[ini] -1;
+        else return v[ini] +1;
 
     } else {
         int m = (ini + fin) / 2;
-        if(letraIni + m != v[m]) {
-            return presoFugado(v, ini, m, letraIni);
-
-        } else return presoFugado(v, m+1, fin, letraIni);
+        if (v[m] != m + letraIni) {
+            return letraFugada(v, ini, m, letraIni);
+        } else {
+            return letraFugada(v, m, fin, letraIni);
+        }
     }
 }
+
+
+
+
 
 void resuelveCaso() {
 char letraIni, letraFin;
@@ -29,7 +32,8 @@ vector<char> v (letraFin - letraIni);
         cin >> v[i];
     }
 
-    cout << presoFugado(v, 0, v.size()-1, letraIni) << '\n';
+    cout << letraFugada (v, 0, v.size(), letraIni)<< '\n';;
+
 
 }
 

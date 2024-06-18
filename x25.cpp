@@ -15,17 +15,21 @@ using namespace std;
  * recursion por lo que el coste de la funcion ganador es log n siendo n el numero de
  * elementos que presenta el carton
  */
-bool ganador (const vector<int>& v, int cantado, int &ganado, int ini, int fin)  {
+
+int bongo (const vector<int>& v, int ini, int fin, int cantado) {
     if(ini == fin) {
-        ganado = v[ini];
-        return cantado+ini == v[ini];
+        if(ini + cantado == v[fin]) return v[ini];
+        else return -1;
     } else {
-        int m = (ini + fin) / 2;
-        if(v[m] >= cantado + m) {
-            return ganador(v, cantado, ganado, ini, m);
-        } else return ganador(v, cantado, ganado, m+1, fin);
+        int m = (ini + fin)/2;
+        if(v[m] >= m + cantado) {
+            return bongo (v, ini, m, cantado);
+        } else {
+            return bongo (v, m+1, fin, cantado);
+        }
     }
 }
+
 
 void resuelveCaso() {
     int cantado, carton;
@@ -34,9 +38,11 @@ void resuelveCaso() {
     for (int i = 0; i < carton; ++i) {
         cin >> v[i];
     }
-    int ganado;
-    if(ganador(v, cantado, ganado, 0, carton-1)) cout << ganado << '\n';
-    else cout << "NO" << '\n';
+
+    int p = bongo(v, 0, carton-1, cantado);
+    if(p == -1) cout << "NO" << '\n';
+    else cout << p << '\n';
+
 
 
 }
