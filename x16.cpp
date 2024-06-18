@@ -25,19 +25,45 @@ using namespace std;
 
 //falta el predicado todo pares todosPares(v, p, q
 
-//TODO SE ME BORRO PERO SUPE HACERLO
+int positivosEnLaIzquierda (const vector<int>& v, int l) {
+    int k = 0, positivosIzq = 0, positivosDer = 0, contador = 0;
+    for (int i = 0; i < v.size(); ++i) {
+
+        if(k < l/2) {
+            if(v[i] > 0) positivosIzq++;
+
+        } else {
+            if (v[i] > 0) positivosDer++;
+        }
+        k++;
+
+        if(k == l) {
+            if(positivosIzq >= positivosDer) {
+                contador++;
+
+            }
+            if(v[i-l+1] > 0) positivosIzq--;
+            if(v[i - (k/2) +1] > 0) {
+                positivosIzq++;
+                positivosDer--;
+            }
+            k--;
+        }
+    }
+    return contador;
+
+}
 
 bool resuelveCaso() {
     int n, l;
     cin >> n;
     if(n == 0) return false;
-    int aux;
-    vector<int> v;
+   cin >> l;
+    vector<int> v (n);
     for (int i = 0; i < n; ++i) {
-        cin >> aux;
-        v.push_back(aux);
+        cin >> v[i];
     }
-    cin >> l;
+
 
 
     cout << positivosEnLaIzquierda(v, l) << '\n';

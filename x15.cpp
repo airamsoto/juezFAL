@@ -23,25 +23,26 @@ using namespace std;
  *
  */
 
-//falta el predicado todo pares todosPares(v, p, q
+//falta el predicado todo pares todosPares(v, p, q)
 
-int cerosYUnos (const vector<int>&v, int l) {
-    int ceros = 0, unos = 0, contador = 0, k = 0;
+
+int cerosYUnos(const vector<int> &v, int l) {
+    int contador = 0, ceros = 0, unos = 0, k = 0;
     for (int i = 0; i < v.size(); ++i) {
-        k++;
         if(v[i] == 0) ceros++;
         else if(v[i] == 1) unos++;
+        k++;
+
         if(k == l) {
-            if(ceros == unos) contador++;
-            if(v[i-k+1] == 0) ceros--;
-            else if(v[i-k+1] == 1) unos--;
+            if (ceros == unos) contador++;
+            if(v[i-l+1] == 0) ceros--;
+            else if(v[i-l+1] == 1) unos--;
             k--;
         }
-
     }
     return contador;
-
 }
+
 
 void resuelveCaso() {
     int n, l;
@@ -52,10 +53,7 @@ void resuelveCaso() {
         cin >> aux;
         v.push_back(aux);
     }
-
-
     cout << cerosYUnos(v, l) << '\n';
-
 
 
 }
@@ -75,7 +73,7 @@ int main() {
     // restablecimiento de cin
 #ifndef DOMJUDGE
     std::cin.rdbuf(cinbuf);
-    system("pause");
+
 #endif
     return 0;
 }
