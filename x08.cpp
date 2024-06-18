@@ -1,57 +1,57 @@
+
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <climits>
-//airam martin soto E37
 using namespace std;
 
-/*
- * n = v.size()
- * P{suma = 0, numero = 0, v.size() >= 0}
- * proc encuestas(vector<int>& v, long long int&suma, int& numero)
- * Q{contador = n - #e, suma = sumatorio Vu (0<u<=n-e) : v[u]}
- *
- * invariante: 1<=i<v.size(), contador = n - #e, suma = sumatorio Vu (0<u<=n-e) : v[u]
- * e : 0 <= n ^ minimo
- * cota = n - i
- */
 
-bool esPastoso(vector<int> &v, int& pos) {
-  //TODO NO ME SALE
-}
-void resuelveCaso() {
-int n;
-cin >> n;
-int aux;
-vector<int> v;
-    for (int i = 0; i < n; ++i) {
-        cin >> aux;
-        v.push_back(aux);
+
+int esPastoso(vector <int> v) {
+    int suma = 0;
+    for (int i = v.size() -1; i >= 0; --i) {
+        if(v[i] == suma) return i;
+        else suma+=v[i];
+
     }
-    int pos = 0;
-    if (esPastoso(v, pos )) {
-        cout << "SI " << pos << '\n';
-    } else cout << "NO" << '\n';
 
-
+    return -1;
 }
 
+
+void resuelveCaso() {
+    int num;
+    cin >> num;
+    vector <int> vc(num);
+    for (int i = 0; i < num; i++) {
+        cin >> vc[i];
+
+    }
+    int i = esPastoso(vc);
+    if (i == -1) cout << "No" << '\n';
+    else cout << "Si " << i << '\n';
+
+}
 
 int main() {
-    // ajuste para que cin extraiga directamente de un fichero
+    // Para la entrada por fichero.
 #ifndef DOMJUDGE
     std::ifstream in("sample.in");
     auto cinbuf = std::cin.rdbuf(in.rdbuf());
 #endif
 
+
     int numCasos;
     std::cin >> numCasos;
-    for (int i = 0; i < numCasos; ++i) resuelveCaso();
+    // Resolvemos
+    for (int i = 0; i < numCasos; ++i) {
+        resuelveCaso();
+    }
 
-    // restablecimiento de cin
-#ifndef DOMJUDGE
+
+#ifndef DOMJUDGE // para dejar todo como estaba al principio
     std::cin.rdbuf(cinbuf);
-    system("pause");
+
 #endif
+
     return 0;
 }

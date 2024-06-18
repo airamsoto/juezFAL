@@ -1,41 +1,37 @@
-
-
 #include <iostream>
 #include <vector>
 #include <fstream>
-
 using namespace std;
 
 
-int minimoPerdido (const vector<int> &v,int ini, int fin, int primero) {
-    if(ini == fin) {
-        if(primero + ini < v[ini]) return primero + ini;
-        else return v[ini] + 1;
-
-    } else {
-        int m = (ini + fin) / 2;
-        if(primero + m >= v[m]) {
-            return minimoPerdido(v, m+1, fin ,primero);
-        } else return minimoPerdido(v, ini, m, primero);
+void segmentosConsecutivos (const vector<int> &v) {
+    long long int contador = 0, longitud = 1;
+    for (int i = 1; i < v.size(); i++) {
+        if (abs(v[i] - v[i - 1]) == 1) {
+            longitud++;
+            if (longitud >= 2) {
+                contador += longitud - 1;
+            }
+        }
+        else {
+            longitud = 1;
+        }
     }
+
+    cout << contador << endl;
+
 }
 
 
 
 void resuelveCaso() {
-    int n, ini;
-
-    cin >> n >> ini;
+    int n;
+    cin >> n;
     vector<int> v (n);
     for (int i = 0; i < n; ++i) {
         cin >> v[i];
     }
-    if(n == 0) cout << ini << '\n';
-    else
-    cout << minimoPerdido(v, 0, n-1, ini) << '\n';
-
-
-
+    segmentosConsecutivos(v);
 
 
 }
