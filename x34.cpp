@@ -1,11 +1,12 @@
-include <iostream>
+#include <iostream>
 #include <fstream>
 #include <vector>
+
 using namespace std;
 
-void quitaNieves(const vector<vector<int>>& calidades, const vector<int>& anchurasCarros, const vector<int>& anchurasCaminos,
-    vector<bool>& carrosUsados, vector<bool>& caminosUsados, int k, int n, vector<int>& sol, int& calidad,
-    vector<int>& mejor_sol, int& mejorCalidad, vector <int>& acum) {
+void
+quitaNieves(const vector<vector<int>> &calidades, const vector<int> &anchurasCarros, const vector<int> &anchurasCaminos, vector<bool> &carrosUsados,
+            vector<bool> &caminosUsados, int k, int n, vector<int> &sol, int &calidad, vector<int> &mejor_sol, int &mejorCalidad, vector<int> &acum) {
 
     for (int carros = 0; carros < anchurasCarros.size(); carros++) {
         if (!carrosUsados[carros] && anchurasCarros[carros] <= anchurasCaminos[k]) {
@@ -18,34 +19,25 @@ void quitaNieves(const vector<vector<int>>& calidades, const vector<int>& anchur
                         mejorCalidad = calidad;
                         mejor_sol = sol;
                     }
-
+                } else if (calidad + acum[k + 1] > mejorCalidad) {
+                    quitaNieves(calidades, anchurasCarros, anchurasCaminos, carrosUsados, caminosUsados, k + 1, n, sol,
+                                calidad, mejor_sol, mejorCalidad, acum);
                 }
-                else {
-
-                    quitaNieves(calidades, anchurasCarros, anchurasCaminos, carrosUsados, caminosUsados, k + 1, n, sol, calidad, mejor_sol, mejorCalidad, acum);
-
-                }
-
-
             }
             carrosUsados[carros] = false;
             calidad -= calidades[carros][k];
-           
-            
-
         }
-        
     }
     if (k == n - 1) {
         mejorCalidad = max(mejorCalidad, calidad);
-    }
-    else {
-        if (k != n - 1 && mejorCalidad < calidad + acum[k + 1]) { //calidad + acum[k + 1] es la estimacion
-            quitaNieves(calidades, anchurasCarros, anchurasCaminos, carrosUsados, caminosUsados, k + 1, n, sol, calidad, mejor_sol, mejorCalidad, acum);
+    } else {
+        if (k != n - 1 && mejorCalidad < calidad + acum[k + 1]) {
+            quitaNieves(calidades, anchurasCarros, anchurasCaminos, carrosUsados, caminosUsados, k + 1, n, sol,
+                        calidad, mejor_sol, mejorCalidad, acum);
         }
     }
-}
 
+}
 
 
 void resuelveCaso() {
@@ -58,8 +50,8 @@ void resuelveCaso() {
     vector<bool> carrosUsados(nCarros, false);
     vector<bool> caminosUsados(nCaminos, false);
     vector<int> sol(nCaminos);
-    vector<int> mejor_sol(nCaminos );
-    vector <int> acum(nCaminos, -1);
+    vector<int> mejor_sol(nCaminos);
+    vector<int> acum(nCaminos, 0);
 
     for (int i = 0; i < nCarros; i++) {
         cin >> anchurasCarros[i];
@@ -68,23 +60,27 @@ void resuelveCaso() {
     for (int i = 0; i < nCaminos; i++) {
         cin >> anchurasCaminos[i];
     }
-
+    vector<int> mejoresCalidades(nCaminos, -1);
     for (int i = 0; i < nCarros; i++) {
         for (int j = 0; j < nCaminos; j++) {
             cin >> calidades[i][j];
-            acum[j] = max(acum[j], calidades[i][j]);
+            mejoresCalidades[j] = max(mejoresCalidades[j], calidades[i][j]);
 
         }
     }
-    for (int i = nCaminos - 2; i >= 0; i--) acum[i] += acum[i + 1];
-    
-    quitaNieves(calidades, anchurasCarros, anchurasCaminos, carrosUsados, caminosUsados, 0, nCaminos, sol, calidad, mejor_sol, mejorCalidad, acum);
+    acum[acum.size() - 1] = mejoresCalidades[mejoresCalidades.size() - 1];
+    for (int i = nCaminos - 2; i >= 0; i--) {
+        acum[i] = acum[i + 1] + mejoresCalidades[i];
+    }
+
+    quitaNieves(calidades, anchurasCarros, anchurasCaminos, carrosUsados, caminosUsados, 0, nCaminos, sol, calidad,
+                mejor_sol, mejorCalidad, acum);
     cout << mejorCalidad << endl;
 }
 
 int main() {
 #ifndef DOMJUDGE
-    std::ifstream in("casos.txt");
+    std::ifstream in("sample.in ");
     auto cinbuf = std::cin.rdbuf(in.rdbuf());
 #endif
 
