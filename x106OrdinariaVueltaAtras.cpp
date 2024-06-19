@@ -5,87 +5,72 @@
 #include <algorithm>
 
 using namespace std;
-
-bool puedeCogerla(int necesaria, const vector<bool> &aprobadas) {
-    if (necesaria == -1) return true;
-    return aprobadas[necesaria];
+bool puedeCogerla(const vector<bool> &aprobadas, const vector<int> prerrequisitos, int k) {
+    if(aprobadas[k] || (prerrequisitos[k] != -1 && !aprobadas[prerrequisitos[k]])) return false;
+    return true;
 }
+void asignaturas ( const vector<int>&ordenados, vector<bool> &aprobadas,vector<int> &prerrequisitos, vector<int> &creditosAsginatura,vector<int> &costesMatricula, vector<bool>&marcas, int &creditosActuales,
+                   int &costeActual, int& mejorCoste, int k, int creditosNecesarios) {
+    if(k < aprobadas.size()) {
+        int asig = ordenados[k];
+        if(!marcas[asig] && puedeCogerla(aprobadas, prerrequisitos, asig)) {
+            marcas[asig]= true;
+            costeActual+= costesMatricula[asig];
+            creditosActuales+= creditosAsginatura[asig];
+            if(creditosActuales >= creditosNecesarios) {
+                mejorCoste = min(mejorCoste, costeActual);
+            }
+            else asignaturas(ordenados, aprobadas, prerrequisitos, creditosAsginatura, costesMatricula, marcas, creditosActuales, costeActual, mejorCoste, k +1 , creditosNecesarios);
+            costeActual-= costesMatricula[asig];
+            creditosActuales-= creditosAsginatura[asig];
+            marcas[asig] = false;
 
-void creditosAsignaturas(const vector<bool> &aprobadas, const vector<int> &prerequisitos, const vector<int> &creditosV,
-                         const vector<int> &coste, vector<bool> &escogidas, int contadorDeCreditos, int costeActual,
-                         int &mejorCoste, const vector<int> &orden, int k, int cred) {
-
-    if (contadorDeCreditos >= cred) {
-        if (costeActual < mejorCoste) {
-            mejorCoste = costeActual;
         }
-        return;
+        asignaturas(ordenados, aprobadas, prerrequisitos, creditosAsginatura, costesMatricula, marcas, creditosActuales, costeActual, mejorCoste, k +1 , creditosNecesarios);
     }
 
-    if (k == orden.size()) {
-        return;
-    }
-
-    int i = orden[k];
-    if (!escogidas[i] && puedeCogerla(prerequisitos[i], aprobadas) && !aprobadas[i]) {
-        escogidas[i] = true;
-        costeActual += coste[i];
-        contadorDeCreditos += creditosV[i];
-        creditosAsignaturas(aprobadas, prerequisitos, creditosV, coste, escogidas, contadorDeCreditos, costeActual, mejorCoste, orden, k + 1, cred);
-        escogidas[i] = false;
-        costeActual -= coste[i];
-        contadorDeCreditos -= creditosV[i];
-    }
-
-    creditosAsignaturas(aprobadas, prerequisitos, creditosV, coste, escogidas, contadorDeCreditos, costeActual, mejorCoste, orden, k + 1, cred);
 }
 
-void resuelveCaso() {
-    int asignaturas, creditos;
-    cin >> asignaturas >> creditos;
-
-    vector<bool> aprobadas(asignaturas);
-    vector<int> prerequisitos(asignaturas);
-    vector<int> creditosV(asignaturas);
-    vector<int> coste(asignaturas);
-
-    char aux;
-    for (int i = 0; i < asignaturas; ++i) {
+void resuelveCaso(){
+    int n, creditos;
+    cin >> n >> creditos;
+    vector<bool> aprobadas (n);
+    vector<int> prerrequisitos (n);
+    vector<int> creditosAsginatura (n);
+    vector<int> costesMatricula (n);
+    string aux;
+    for (int i = 0; i < n; ++i) {
         cin >> aux;
-        aprobadas[i] = (aux == 'A');
+        if (aux == "A") aprobadas[i] = true;
+        else aprobadas[i] = false;
     }
 
-    for (int i = 0; i < asignaturas; ++i) {
-        cin >> prerequisitos[i];
+    for (int i = 0; i < n; ++i) {
+        cin >> prerrequisitos[i];
     }
+    for (int i = 0; i < n; ++i) {
+        cin >> creditosAsginatura[i];
 
-    for (int i = 0; i < asignaturas; ++i) {
-        cin >> creditosV[i];
     }
+    for (int i = 0; i < n; ++i) {
+        cin >> costesMatricula[i];
 
-    for (int i = 0; i < asignaturas; ++i) {
-        cin >> coste[i];
     }
-
-
-    vector<int> orden(asignaturas);
-    for (int i = 0; i < asignaturas; ++i) {
+    vector<int> orden(n);
+    for (int i = 0; i < n; ++i) {
         orden[i] = i;
     }
 
     sort(orden.begin(), orden.end(), [&](int a, int b) {
-        return (double)creditosV[a] / coste[a] > (double)creditosV[b] / coste[b];
+        return (double)creditosAsginatura[a] / costesMatricula[a] > (double)creditosAsginatura[b] / costesMatricula[b];
     });
+    int creditosActuales = 0, costeActual = 0, mejorCoste = INT_MAX;
+    vector<bool> marcas (n, false);
 
-    int contadorDeCreditos = 0, costeActual = 0, mejorCoste = INT_MAX;
-    vector<bool> escogidas(asignaturas, false);
-    creditosAsignaturas(aprobadas, prerequisitos, creditosV, coste, escogidas, contadorDeCreditos, costeActual, mejorCoste, orden, 0, creditos);
+    asignaturas(orden, aprobadas, prerrequisitos, creditosAsginatura, costesMatricula, marcas, creditosActuales, costeActual, mejorCoste, 0, creditos);
+    if (mejorCoste == INT_MAX) cout  << "NO" << '\n';
+    else cout << mejorCoste << '\n';
 
-    if (mejorCoste == INT_MAX) {
-        cout << "NO" << '\n';
-    } else {
-        cout << mejorCoste << '\n';
-    }
 }
 
 int main() {
