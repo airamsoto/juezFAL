@@ -5,28 +5,30 @@
 using namespace std;
 
 void
-quitaNieves(const vector<vector<int>> &calidades, const vector<int> &anchurasCarros, const vector<int> &anchurasCaminos, vector<bool> &carrosUsados,
-            vector<bool> &caminosUsados, int k, int n, vector<int> &sol, int &calidad, vector<int> &mejor_sol, int &mejorCalidad, vector<int> &acum) {
+quitaNieves(const vector<vector<int>> &calidades, const vector<int> &anchurasCarros, const vector<int> &anchurasCaminos,
+            vector<bool> &carrosUsados,
+            vector<bool> &caminosUsados, int k, int n, vector<int> &sol, int &calidad, vector<int> &mejor_sol,
+            int &mejorCalidad, vector<int> &acum) {
 
     for (int carros = 0; carros < anchurasCarros.size(); carros++) {
         if (!carrosUsados[carros] && anchurasCarros[carros] <= anchurasCaminos[k]) {
-            if (anchurasCarros[carros] <= anchurasCaminos[k]) {
-                carrosUsados[carros] = true;
-                calidad += calidades[carros][k];
-                sol[k] = carros;
-                if (k == n - 1) {
-                    if (mejorCalidad < calidad) {
-                        mejorCalidad = calidad;
-                        mejor_sol = sol;
-                    }
-                } else if (calidad + acum[k + 1] > mejorCalidad) {
-                    quitaNieves(calidades, anchurasCarros, anchurasCaminos, carrosUsados, caminosUsados, k + 1, n, sol,
-                                calidad, mejor_sol, mejorCalidad, acum);
+            carrosUsados[carros] = true;
+            calidad += calidades[carros][k];
+            sol[k] = carros;
+            if (k == n - 1) {
+                if (mejorCalidad < calidad) {
+                    mejorCalidad = calidad;
+                    mejor_sol = sol;
                 }
+            } else if (calidad + acum[k + 1] > mejorCalidad) {
+                quitaNieves(calidades, anchurasCarros, anchurasCaminos, carrosUsados, caminosUsados, k + 1, n, sol,
+                            calidad, mejor_sol, mejorCalidad, acum);
             }
             carrosUsados[carros] = false;
             calidad -= calidades[carros][k];
         }
+
+
     }
     if (k == n - 1) {
         mejorCalidad = max(mejorCalidad, calidad);
@@ -93,7 +95,6 @@ int main() {
 
 #ifndef DOMJUDGE
     std::cin.rdbuf(cinbuf);
-    system("PAUSE");
 #endif
 
     return 0;
