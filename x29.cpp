@@ -5,31 +5,29 @@
 #include <fstream>
 
 using namespace std;
-
 struct tJugador {
     int puntos;
     string nombre;
 };
 
-tJugador ganadorCanincas (const vector<tJugador> &jugadores, int ini, int fin) {
-    if(ini == fin) return jugadores[ini];
+tJugador ganadorCanincas (const vector<tJugador>& jugadores, int ini, int fin) {
+    if (ini == fin) return jugadores[ini];
     else {
-        int m = (ini+fin)  / 2;
-        tJugador jugadorDer = ganadorCanincas(jugadores, m+1, fin);
-        tJugador jugadorIzq = ganadorCanincas(jugadores, ini, m);
+        int m = (ini + fin) /2;
+        tJugador izq = ganadorCanincas(jugadores, ini, m);
+        tJugador der = ganadorCanincas(jugadores, m+1, fin);
 
-        if (jugadorDer.puntos > jugadorIzq.puntos) {
-           jugadorDer.puntos += jugadorIzq.puntos /2;
-            return jugadorDer;
+        tJugador ganador;
+        if(izq.puntos >= der.puntos) {
+            ganador.puntos = izq.puntos + der.puntos / 2;
+            ganador.nombre = izq.nombre;
         } else {
-            jugadorIzq.puntos += jugadorDer.puntos / 2;
-            return jugadorIzq;
+            ganador.puntos = der.puntos + izq.puntos/2;
+            ganador.nombre = der.nombre;
         }
+        return ganador;
     }
 }
-
-
-
 bool resuelveCaso() {
 
     int n;

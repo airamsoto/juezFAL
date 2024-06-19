@@ -5,28 +5,29 @@
 #include <fstream>
 
 using namespace std;
-//TODO DA TIMELIMIT REVISAR EJ DE ABAJO
 
-pair<bool, int> esDegradadoPorFila(const vector<int> &v, int ini, int fin) {
-    if (ini == fin - 1) {
-        return {v[ini] < v[fin], v[ini] + v[fin]};
-    } else {
-        int m = (ini + fin) / 2;
-        auto [dIzq, sumaI] = esDegradadoPorFila(v, ini, m);
-        auto [dDer, sumaDer] = esDegradadoPorFila(v, m + 1, fin);
-
-
-        return {dIzq && dDer && sumaDer > sumaI, sumaDer + sumaI};
+int esDegradadoPorFilas (const vector<int>& v, int ini, int fin, bool &es) {
+    if (ini == fin) {
+        es = true;
+        return v[ini];
+    } else{
+        int m= (ini + fin) /2;
+        bool bi, bd;
+        int izq = esDegradadoPorFilas(v, ini, m, bi);
+        int der = esDegradadoPorFilas(v, m+1, fin, bd);
+        es = izq < der && bi && bd;
+        return izq + der;
     }
-
 }
-
-bool esDegradado(const vector<vector<int>> &matriz, int fila, int n) {
-    if (fila == n)
+bool esDegradado (const vector<vector<int>> &matriz, int ini, int fin) {
+    if(ini == fin) {
         return true;
-    if (!esDegradadoPorFila(matriz[fila], 0, matriz[fila].size()-1).first)
-        return false;
-    return esDegradado(matriz, fila + 1, n);
+    }
+    bool jose;
+    esDegradadoPorFilas(matriz[ini], 0, matriz[ini].size()-1, jose);
+    if(!jose) return jose;
+    return esDegradado(matriz, ini+1, fin);
+
 }
 
 bool resuelveCaso() {

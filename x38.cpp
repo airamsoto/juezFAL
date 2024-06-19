@@ -6,17 +6,15 @@
 
 using namespace std;
 
-
-int minimoPerdido (const vector<int> &v,int ini, int fin, int primero) {
-    if(ini == fin) {
-        if(primero + ini < v[ini]) return primero + ini;
+int minimoPerdido(const vector<int>&v, int  ini, int fin, int inicio) {
+    if(ini == fin - 1) {
+        if(v[ini] != inicio + ini) return inicio;
         else return v[ini] + 1;
-
     } else {
         int m = (ini + fin) / 2;
-        if(primero + m >= v[m]) {
-            return minimoPerdido(v, m+1, fin ,primero);
-        } else return minimoPerdido(v, ini, m, primero);
+        if(v[m] != m + inicio) {
+            return minimoPerdido(v, ini, m, inicio);
+        } else return minimoPerdido(v, m, fin, inicio);
     }
 }
 
@@ -32,7 +30,7 @@ void resuelveCaso() {
     }
     if(n == 0) cout << ini << '\n';
     else
-    cout << minimoPerdido(v, 0, n-1, ini) << '\n';
+    cout << minimoPerdido(v, 0, n, ini) << '\n';
 
 
 

@@ -13,54 +13,52 @@
 #include <climits>
 
 using namespace std;
-
-void funcionarios(const vector<vector<int>> &trabajadores, int k, int n, vector<int> &sol, vector<int> &mejorSol,
-                  vector<bool> &trabajosUsados, int& mejorTiempo, int &tiempoActual) {
-    for (int trabajo = 0; trabajo < n; ++trabajo) {
-        if(!trabajosUsados[trabajo]) {
-            sol[k] = trabajo;
-            trabajosUsados[trabajo] = true;
-            tiempoActual += trabajadores[k][trabajo];
-            if(k == n -1) {
+void funcionarios (const vector<vector<int>> &datos, vector<bool> &marcasPuestos, vector<bool> &marcasTrabajadores, int&mejorTiempo, int&tiempoActual, int k, int n, vector<int>&sol, vector<int>&mejorSol) {
+    for (int i = 0; i < n; ++i) {
+        if(!marcasPuestos[i]) {
+            tiempoActual+=datos[k][i];
+            marcasTrabajadores[k] = true;
+            marcasPuestos[i] = true;
+            sol[i] = k;
+            if(k == sol.size()-1) {
                 if(tiempoActual < mejorTiempo) {
-                    mejorSol = sol;
                     mejorTiempo = tiempoActual;
+                    mejorSol = sol;
                 }
             } else {
-                funcionarios(trabajadores, k + 1, n, sol, mejorSol, trabajosUsados, mejorTiempo, tiempoActual);
-
+                funcionarios(datos, marcasPuestos, marcasTrabajadores, mejorTiempo, tiempoActual, k+1, n, sol, mejorSol);
             }
-            trabajosUsados[trabajo] = false;
-            tiempoActual -= trabajadores[k][trabajo];
+
+
+            tiempoActual-=datos[k][i];
+            marcasTrabajadores[k] = false;
+            marcasPuestos[i] = false;
+
         }
 
     }
 }
-
 bool resuelveCaso() {
-    int numeroTrabajadores;
-    cin >> numeroTrabajadores;
+    int n;
+    cin >> n;
+    if (n == 0)return false;
+    vector<vector<int>> datos (n, vector<int> (n));
 
-    if (numeroTrabajadores == 0) return false;
-
-    vector<vector<int>> trabajadores(numeroTrabajadores, vector<int>(numeroTrabajadores));
-
-    for (int i = 0; i < numeroTrabajadores; ++i) {
-        for (int j = 0; j < numeroTrabajadores; ++j) {
-            cin >> trabajadores[i][j];
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            cin >> datos[i][j];
         }
     }
 
-    vector<bool> trabajosUsados(numeroTrabajadores, false);
-    vector<int> sol (numeroTrabajadores);
-    vector<int> mejorSol(numeroTrabajadores);
 
-    int tiempoAct = 0;
-    int mejorTiempo = INT_MAX;
 
-    funcionarios(trabajadores, 0, numeroTrabajadores, sol, mejorSol, trabajosUsados, mejorTiempo, tiempoAct);
+    vector<bool> marcasPuestos (n, false);
+    vector<bool> marcasTrabajadores (n, false);
+    int mejorTiempo = INT_MAX, tiempoActual = 0;
+    vector<int> sol (n);
+    vector<int> mejorSol (n);
+    funcionarios(datos, marcasPuestos, marcasTrabajadores, mejorTiempo, tiempoActual, 0, n, sol, mejorSol);
     cout << mejorTiempo << '\n';
-
 
 
 

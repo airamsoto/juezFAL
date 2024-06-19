@@ -1,5 +1,3 @@
-//TODO FUNCIONARIOS CON ESTIMACION
-
 
 /*
  * El coste del algorimto sera el numero de elementos de la solucion,
@@ -13,73 +11,58 @@
 #include <climits>
 
 using namespace std;
-
-void funcionarios(const vector<vector<int>> &trabajadores, int k, int n, vector<int> &sol, vector<int> &mejorSol,
-                  vector<bool> &trabajosUsados, int& mejorTiempo, int &tiempoActual, vector<int>&acumuladores) {
-    for (int trabajo = 0; trabajo < n; ++trabajo) {
-        if(!trabajosUsados[trabajo]) {
-            sol[k] = trabajo;
-            trabajosUsados[trabajo] = true;
-            tiempoActual += trabajadores[k][trabajo];
-            int valorEsperado;
-            if(k + 1 < n ) valorEsperado=  tiempoActual + acumuladores[k+1];
-            else valorEsperado = tiempoActual;
-            if(valorEsperado < mejorTiempo) {
-                if(k == n -1) {
-                    if(tiempoActual < mejorTiempo) {
-                        mejorSol = sol;
-                        mejorTiempo = tiempoActual;
-                    }
-                } else { //todo la estiamcion deberia de ponerse aqui para verlo mas claro
-                    funcionarios(trabajadores, k + 1, n, sol, mejorSol, trabajosUsados, mejorTiempo, tiempoActual, acumuladores);
-
+void funcionarios (const vector<vector<int>> &datos, vector<bool> &marcasPuestos, vector<bool> &marcasTrabajadores, vector<int>&acumuladores, int&mejorTiempo, int&tiempoActual, int k, int n, vector<int>&sol, vector<int>&mejorSol) {
+    for (int i = 0; i < n; ++i) {
+        if(!marcasPuestos[i]) {
+            tiempoActual+=datos[k][i];
+            marcasTrabajadores[k] = true;
+            marcasPuestos[i] = true;
+            sol[i] = k;
+            if(k == sol.size()-1) {
+                if(tiempoActual < mejorTiempo) {
+                    mejorTiempo = tiempoActual;
+                    mejorSol = sol;
                 }
-
+            } else if(tiempoActual + acumuladores[k+1] < mejorTiempo){
+                funcionarios(datos, marcasPuestos, marcasTrabajadores, acumuladores, mejorTiempo, tiempoActual, k+1, n, sol, mejorSol);
             }
 
-            trabajosUsados[trabajo] = false;
-            tiempoActual -= trabajadores[k][trabajo];
+
+            tiempoActual-=datos[k][i];
+            marcasTrabajadores[k] = false;
+            marcasPuestos[i] = false;
+
         }
 
     }
 }
-
 bool resuelveCaso() {
-    int numeroTrabajadores;
-    cin >> numeroTrabajadores;
-
-    if (numeroTrabajadores == 0) return false;
-    vector<int> mejoresValores (numeroTrabajadores, INT_MAX);
-    vector<vector<int>> trabajadores(numeroTrabajadores, vector<int>(numeroTrabajadores));
-
-    for (int i = 0; i < numeroTrabajadores; ++i) {
-        for (int j = 0; j < numeroTrabajadores; ++j) {
-            cin >> trabajadores[i][j];
-            int aux = trabajadores[i][j];
-            if(aux < mejoresValores[i]) {
-                mejoresValores[i] = aux;
-            }
+    int n;
+    cin >> n;
+    if (n == 0)return false;
+    vector<vector<int>> datos (n, vector<int> (n));
+    vector<int> mejoresTiempos (n, INT_MAX);
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            cin >> datos[i][j];
+            if(mejoresTiempos[i] > datos[i][j]) mejoresTiempos[i] = datos[i][j];
         }
     }
+    vector<int> acumulados (n);
+    acumulados[acumulados.size()-1] = mejoresTiempos[mejoresTiempos.size()-1];
+    for (int i = mejoresTiempos.size()-2; i>=0; --i) {
+        acumulados[i] = acumulados[i+1] + mejoresTiempos[i];
 
-    vector<int> acumuladores(numeroTrabajadores, 0);
-    acumuladores[numeroTrabajadores - 1] = mejoresValores[numeroTrabajadores - 1];
-
-    for (int i = numeroTrabajadores - 2; i >= 0; --i) {
-        acumuladores[i] = acumuladores[i + 1] + mejoresValores[i];
     }
 
-    vector<bool> trabajosUsados(numeroTrabajadores, false);
-    vector<int> sol (numeroTrabajadores);
-    vector<int> mejorSol(numeroTrabajadores);
 
-
-    int tiempoAct = 0;
-    int mejorTiempo = INT_MAX;
-
-    funcionarios(trabajadores, 0, numeroTrabajadores, sol, mejorSol, trabajosUsados, mejorTiempo, tiempoAct, acumuladores);
+    vector<bool> marcasPuestos (n, false);
+    vector<bool> marcasTrabajadores (n, false);
+    int mejorTiempo = INT_MAX, tiempoActual = 0;
+    vector<int> sol (n);
+    vector<int> mejorSol (n);
+    funcionarios(datos, marcasPuestos, marcasTrabajadores, acumulados, mejorTiempo, tiempoActual, 0, n, sol, mejorSol);
     cout << mejorTiempo << '\n';
-
 
 
 

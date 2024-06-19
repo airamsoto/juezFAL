@@ -1,87 +1,62 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <climits>
 
 using namespace std;
+void compraDeLaSemana (const vector<vector<int>> &compra, vector<int>&productosEnSuper, vector<bool>& productos, vector<int>&acum, int n,int k, int &costeActual, int& mejorCoste,vector<int>&sol, vector<int>&mejorSol) {
+    for (int super = 0; super < n; ++super) {
+        if(productosEnSuper[super] < 3) {
+            if(!productos[k]) {
+                productos[k] = true;
+                productosEnSuper[super]++;
+                costeActual+=compra[super][k];
+                sol[k] = super;
+                if(k == sol.size()-1) {
+                    if(costeActual < mejorCoste) {
+                        mejorCoste = costeActual;
+                        mejorSol = sol;
+                    }
+                } else if(costeActual + acum[k+1] < mejorCoste){
+                    compraDeLaSemana(compra, productosEnSuper, productos, acum, n, k+1, costeActual, mejorCoste, sol, mejorSol);
+                }
+                productos[k] = false;
+                productosEnSuper[super]--;
+                costeActual-=compra[super][k];
 
-void compra(const vector<vector<int>> &matriz, vector<int> &productosPorSuper, int k, vector<int> &sol,
-            vector<int> &mejorSol,
-            int &precioActual, int &mejorPrecio, int n, const vector<int> &acumuladores, int &minCoste) {
-
-    for (int i = 0; i < n; ++i) {
-
-
-        sol[k] = matriz[i][k];
-        precioActual += matriz[i][k];
-        minCoste -= acumuladores[k];
-        int estimacion = precioActual + minCoste;
-
-        if ((productosPorSuper[i] < 3 && k == sol.size() - 1) &&
-            (mejorPrecio == -1 || precioActual < mejorPrecio)) {
-            mejorSol = sol;
-            mejorPrecio = precioActual;
-
-
-        } else if ((mejorPrecio == -1 || estimacion < mejorPrecio) && (k < sol.size() - 1 && productosPorSuper[i] < 3)) {
-            productosPorSuper[i]++;
-            compra(matriz, productosPorSuper, k + 1, sol, mejorSol, precioActual, mejorPrecio, n, acumuladores,
-                   minCoste);
-            productosPorSuper[i]--;
-
+            }
         }
-
-        precioActual -= matriz[i][k];
-        minCoste += acumuladores[k];
     }
 
 }
 
-void buscaMin(vector<int> &minValores, const vector<vector<int>> &precios, int &minCoste, int i, int j) {
-    if (minValores[j] == -1 || precios[i][j] < minValores[j]) {
-        if (precios[i][j] < minValores[j]) {
-            minCoste -= minValores[j];
-        }
-        minCoste += precios[i][j];
-        minValores[j] = precios[i][j];
-
-
-    }
-}
-
-bool resuelveCaso() {
+void resuelveCaso(){
     int supermercados, productos;
     cin >> supermercados >> productos;
-    if (!cin) return false;
-
-    vector<vector<int>> compras(supermercados, vector<int>(productos));
-    vector<int> productosPorSuper(supermercados, 0);
-    vector<int> sol(productos);
-    vector<int> mejorSol(productos);
-    int precioActual = 0;
-    int mejorPrecio = -1;
-    int minCoste = 0;
-    vector<int> minValores(productos, -1);
-
+    vector<int> menores (productos, INT_MAX);
+    vector<vector<int>> compra (supermercados, vector<int> (productos));
     for (int i = 0; i < supermercados; ++i) {
         for (int j = 0; j < productos; ++j) {
-            cin >> compras[i][j];
-            buscaMin(minValores, compras, minCoste, i, j);
+            cin >> compra[i][j];
+            if(menores[j] > compra[i][j]) menores[j] = compra[i][j];
+
         }
     }
-
     vector<int> acumuladores(productos, 0);
-    acumuladores[productos - 1] = minValores[productos - 1];
+    acumuladores[productos - 1] = menores[productos - 1];
     for (int i = productos - 2; i >= 0; --i) {
-        acumuladores[i] = acumuladores[i + 1] + minValores[i];
+        acumuladores[i] = acumuladores[i + 1] + menores[i];
     }
 
-    compra(compras, productosPorSuper, 0, sol, mejorSol, precioActual, mejorPrecio, supermercados, acumuladores,
-           minCoste);
+    vector<int> productosEnSuper (supermercados, 0);
+    vector<bool> productosComprados (productos, false);
+    int costeActual = 0, costeMejor = INT_MAX;
+    vector<int>sol (productos);
+    vector<int>mejorSol (productos);
 
-    if (mejorPrecio != -1) cout << mejorPrecio << '\n';
-    else cout << "Sin solucion factible" << '\n';
-
-    return true;
+    compraDeLaSemana(compra, productosEnSuper, productosComprados, acumuladores, supermercados, 0, costeActual, costeMejor, sol, mejorSol);
+    if(costeMejor == INT_MAX) cout << "Sin solucion factible" << '\n';
+    else cout << costeMejor << '\n';
 }
 
 int main() {
@@ -93,7 +68,9 @@ int main() {
     unsigned int numCasos;
     std::cin >> numCasos;
 
-    while (resuelveCaso()) {}
+    for (int i = 0; i < numCasos; ++i) {
+        resuelveCaso();
+    }
 
 #ifndef DOMJUDGE
     std::cin.rdbuf(cinbuf);
