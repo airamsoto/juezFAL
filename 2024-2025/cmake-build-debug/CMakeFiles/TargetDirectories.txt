@@ -1,0 +1,3 @@
+C:/Users/airam/git/juezFAL/2024-2025/cmake-build-debug/CMakeFiles/2024_2025.dir
+C:/Users/airam/git/juezFAL/2024-2025/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/airam/git/juezFAL/2024-2025/cmake-build-debug/CMakeFiles/rebuild_cache.dir
