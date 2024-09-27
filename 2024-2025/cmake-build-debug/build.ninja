@@ -49,8 +49,8 @@ cmake_ninja_workdir = C$:/Users/airam/git/juezFAL/2024-2025/cmake-build-debug/
 
 build cmake_object_order_depends_target_2024_2025: phony || CMakeFiles/2024_2025.dir
 
-build CMakeFiles/2024_2025.dir/ej1.cpp.obj: CXX_COMPILER__2024_2025_Debug C$:/Users/airam/git/juezFAL/2024-2025/ej1.cpp || cmake_object_order_depends_target_2024_2025
-  DEP_FILE = CMakeFiles\2024_2025.dir\ej1.cpp.obj.d
+build CMakeFiles/2024_2025.dir/vistasAlMar.cpp.obj: CXX_COMPILER__2024_2025_Debug C$:/Users/airam/git/juezFAL/2024-2025/vistasAlMar.cpp || cmake_object_order_depends_target_2024_2025
+  DEP_FILE = CMakeFiles\2024_2025.dir\vistasAlMar.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\2024_2025.dir
   OBJECT_FILE_DIR = CMakeFiles\2024_2025.dir
@@ -63,7 +63,7 @@ build CMakeFiles/2024_2025.dir/ej1.cpp.obj: CXX_COMPILER__2024_2025_Debug C$:/Us
 #############################################
 # Link the executable 2024_2025.exe
 
-build 2024_2025.exe: CXX_EXECUTABLE_LINKER__2024_2025_Debug CMakeFiles/2024_2025.dir/ej1.cpp.obj
+build 2024_2025.exe: CXX_EXECUTABLE_LINKER__2024_2025_Debug CMakeFiles/2024_2025.dir/vistasAlMar.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\2024_2025.dir
