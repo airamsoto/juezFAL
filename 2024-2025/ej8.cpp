@@ -8,19 +8,19 @@ using namespace std;
 
 
 bool resuelveCaso() {
-    int p, u, n, aux, k, total = 0;
+    long long int p, u, n, aux, k, total = 0;
     cin >> p >> u;
     if (p == 0 && u == 0) return false;
 
     n = u - p + 1;
-    vector<int> v(n);
+    vector<long long int> v(n);
     for (int i = 0; i < n; ++i) {
         cin >> aux;
         v[i] = aux;
         if (i > 0) v[i] += v[i - 1];
     }
     cin >> k;
-    int nP, nU;
+    long long int nP, nU;
     for (int i = 0; i < k; ++i) {
         cin >> nP >> nU;
         if (nP == p) {
