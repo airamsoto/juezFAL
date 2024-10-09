@@ -6,34 +6,33 @@
 //airam martin soto
 using namespace std;
 
-/*
- * x < y
- * x impar
- * y par
- */
 
-int impares(const vector<int> &v) {
-    int contador = 0, impares = 0;
-    for (int i = 0; i < v.size(); ++i) {
-        if (v[i] % 2 != 0) {
-            impares++;
-        } else {
-            contador += impares;
-        }
-    }
-    return contador;
-}
+bool resuelveCaso() {
+    int p, u, n, aux, k, total = 0;
+    cin >> p >> u;
+    if (p == 0 && u == 0) return false;
 
-
-void resuelveCaso() {
-    int n, aux;
-    cin >> n;
+    n = u - p + 1;
     vector<int> v(n);
     for (int i = 0; i < n; ++i) {
         cin >> aux;
         v[i] = aux;
+        if (i > 0) v[i] += v[i - 1];
     }
-    cout << impares(v) << '\n';
+    cin >> k;
+    int nP, nU;
+    for (int i = 0; i < k; ++i) {
+        cin >> nP >> nU;
+        if (nP == p) {
+            total = v[nU - p];
+        } else {
+            total = v[nU - p] - v[nP - p - 1];
+        }
+        cout << total << '\n';
+    }
+
+    cout << "---" << '\n';
+    return true;
 
 }
 
@@ -44,11 +43,7 @@ int main() {
     std::ifstream in("sample.in");
     auto cinbuf = std::cin.rdbuf(in.rdbuf());
 #endif
-    int n;
-    cin >> n;
-    for (int i = 0; i < n; ++i) {
-        resuelveCaso();
-    }
+    while (resuelveCaso()){}
 
     // restablecimiento de cin
 #ifndef DOMJUDGE
