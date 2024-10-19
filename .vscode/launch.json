@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "C/C++: g++-14 Compilar y depurar el archivo activo",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "C/C++: g++-14 compilar archivo activo"
+        }
+    ],
+    "version": "2.0.0"
+}

@@ -1,9 +1,8 @@
-/**
+/**      si puediera decir    
  * Escribid el nombre y usuario del juez los miembros de la pareja:
  * Nombre y usuario: Jorge Calvo Fernandez FAL-E07
  * Nombre y usuario: Airam Martin Soto E44
- *
- * Explica brevemente el algoritmo:
+mm            * Explica breve         mevnte el algoritmo:
  * El algoritmo recorre el mapa del terreno, busca un segmento de valores iguales que sea mayor o igual al numero de castores y que ademas el siguiente valor sea mayor 
  * que los valores del segmento. En caso de que se cumplan esas condiciones, devolvemos true.
  *

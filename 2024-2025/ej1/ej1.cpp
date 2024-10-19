@@ -15,6 +15,7 @@ void resuelveCaso() {
     for (int i = 0; i < v.size(); ++i) {
         cin >> v[i];
     }
+
     int anio = ini;
     int maximo = INT_MIN;
     for (int i = 0; i < n; ++i) {
