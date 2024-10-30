@@ -6,7 +6,7 @@ using namespace std;
 //un vector es divertido si un numero no se repite mas de diff veces
 bool crecientePorLosPelos (const vector<int>&v, int diff) {
     int i = 0, j = 1;
-    vector<int> repetidos(1000, 0);
+    vector<int> repetidos(1000, 0);//inicializo a 1000 elementos porque es el maximo que puede tener el vector (segun el enunciado)
     bool crecienteYDivertido = true;
    repetidos[v[i]]++;
     while (j < v.size() && crecienteYDivertido) {
