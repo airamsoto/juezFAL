@@ -22,7 +22,8 @@ void heide(const vector<int> &v, int l) {
 
         if (contador >= l && v[i] >= maxValorDerecha) {
             if (!esLlano) {
-                numeroLlanuras++;
+                numeroLlanuras++
+                ;
                 sol.push_back(i  + contador - 1);
                 esLlano = true;
             }
@@ -36,9 +37,10 @@ void heide(const vector<int> &v, int l) {
 
     cout << secuenciaMasLarga << " " << numeroLlanuras << " ";
     for (int pos : sol) {
+
         cout << pos << " ";
     }
-    cout << '\n';
+    cout << "jose";
 }
 
 bool resuelveCaso() {

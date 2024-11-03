@@ -2,12 +2,13 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Compilar archivo activo",
+            "label": "Compilar y ejecutar archivo activo",
             "type": "shell",
             "command": "/usr/bin/clang++",
             "args": [
-                "-std=c++17",
-                "-g",
+                "-fcolor-diagnostics",
+                "-fansi-escape-codes",
+                "-g0",
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
@@ -16,7 +17,15 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "detail": "Tarea generada por el usuario."
+            "detail": "Tarea generada para compilar el archivo activo."
+        },
+        {
+            "label": "Ejecutar archivo compilado",
+            "type": "shell",
+            "command": "${fileDirname}/${fileBasenameNoExtension}",
+            "group": "none",
+            "dependsOn": "Compilar y ejecutar archivo activo",
+            "problemMatcher": []
         },
         {
             "type": "cppbuild",
