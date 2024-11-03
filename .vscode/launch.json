@@ -1,7 +1,8 @@
 {
+    "version": "0.2.0",
     "configurations": [
         {
-            "name": "C/C++: g++-14 Compilar y depurar el archivo activo",
+            "name": "Depurar archivo activo",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
@@ -11,8 +12,14 @@
             "environment": [],
             "externalConsole": false,
             "MIMode": "lldb",
-            "preLaunchTask": "C/C++: g++-14 compilar archivo activo"
+            "setupCommands": [
+                {
+                    "description": "Habilitar pretty-printing para lldb",
+                    "text": "settings set target.pretty-printing true",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Compilar archivo activo"
         }
-    ],
-    "version": "2.0.0"
+    ]
 }

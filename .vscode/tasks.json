@@ -2,21 +2,29 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Compile and Clean",
-            "dependsOrder": "sequence",
-            "dependsOn": ["C/C++: g++-14 compilar archivo activo", "Clean up .dSYM folder"],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "label": "Compilar archivo activo",
+            "type": "shell",
+            "command": "/usr/bin/clang++",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Tarea generada por el usuario."
         },
         {
             "type": "cppbuild",
-            "label": "C/C++: g++-14 compilar archivo activo",
-            "command": "/usr/local/bin/g++-14",
+            "label": "C/C++: clang++ compilar archivo activo",
+            "command": "/usr/bin/clang++",
             "args": [
-                "-fdiagnostics-color=always",
-                "-std=c++17",
+                "-fcolor-diagnostics",
+                "-fansi-escape-codes",
                 "-g",
                 "${file}",
                 "-o",
@@ -27,17 +35,12 @@
             },
             "problemMatcher": [
                 "$gcc"
-            ]
-        },
-        {
-            "label": "Clean up .dSYM folder",
-            "type": "shell",
-            "command": "rm -rf ${fileDirname}/${fileBasenameNoExtension}.dSYM",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            }
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Tarea generada por el depurador."
         }
     ]
 }
