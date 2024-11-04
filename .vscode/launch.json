@@ -2,24 +2,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Depurar archivo activo",
+            "name": "Debug C++ Program",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "program": "${workspaceFolder}/a.out", 
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "lldb",
-            "setupCommands": [
-                {
-                    "description": "Habilitar pretty-printing para lldb",
-                    "text": "settings set target.pretty-printing true",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "Compilar archivo activo"
+            "preLaunchTask": "build",
+            "internalConsoleOptions": "openOnSessionStart"
         }
     ]
 }

@@ -40,7 +40,8 @@ void heide(const vector<int> &v, int l) {
 
         cout << pos << " ";
     }
-    cout << "jose";
+    cout << '\n';
+
 }
 
 bool resuelveCaso() {
