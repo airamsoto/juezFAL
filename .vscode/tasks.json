@@ -15,11 +15,11 @@
             "problemMatcher": ["$gcc"],
             "presentation": {
                 "reveal": "always",
-                "panel": "dedicated",
+                "panel": "shared",  // Reutiliza el mismo panel de terminal integrado
                 "echo": true,
                 "close": false
             },
-            "detail": "Compila y ejecuta el archivo .cpp en la terminal principal"
+            "detail": "Compila y ejecuta el archivo .cpp en la terminal integrada"
         }
     ]
 }
