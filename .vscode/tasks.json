@@ -2,14 +2,11 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "build and run in terminal",
             "type": "shell",
-            "command": "g++",
+            "command": "${workspaceFolder}/run.sh",
             "args": [
-                "-std=c++17",
-                "${file}",
-                "-o",
-                "${fileDirname}/a.out"
+                "${file}"
             ],
             "group": {
                 "kind": "build",
@@ -17,25 +14,12 @@
             },
             "problemMatcher": ["$gcc"],
             "presentation": {
-                "reveal": "silent",
-                "close": true
+                "reveal": "always",
+                "panel": "dedicated",
+                "echo": true,
+                "close": false
             },
-            "detail": "Compila el archivo actual en C++17 con g++ y genera un ejecutable llamado a.out en el mismo directorio que el archivo .cpp"
-        },
-        {
-            "label": "run",
-            "type": "shell",
-            "command": "${fileDirname}/a.out",
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "silent",
-                "close": true
-            },
-            "detail": "Ejecuta el programa compilado en el mismo directorio que el archivo .cpp sin abrir el depurador"
+            "detail": "Compila y ejecuta el archivo .cpp en la terminal principal"
         }
     ]
 }
