@@ -1,19 +1,26 @@
 {
     "version": "0.2.0",
     "configurations": [
+        
         {
-            "name": "Debug C++ Program",
+            "name": "Debug C++ File from CHATGPT",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/a.out", 
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "lldb",
-            "preLaunchTask": "build",
-            "internalConsoleOptions": "openOnSessionStart"
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "C/C++: clang++ compilar archivo activo from CHATGPT"
         }
     ]
 }
