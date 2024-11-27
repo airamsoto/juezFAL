@@ -7,18 +7,19 @@ using namespace std;
 
 void resolver(vector<char> &letras, vector<char> &palabra, vector <bool> &usados, int n, int m) {
     for (int i = 0; i < m; i++) {
-        palabra[n] = letras[i];
+       
         if(!usados[i]) {               
             usados[i] = true;
-            //palabra[n] = letras[i];
+            palabra[n] = letras[i];
             if(n == palabra.size() - 1) {
                 for (int i = 0; i < palabra.size(); i++) {
                    cout << palabra[i];
                 }
                 cout << '\n';
             } else resolver(letras, palabra,usados, n + 1, m);
-        }
             usados[i] = false;
+        }
+            
             
             
     }
