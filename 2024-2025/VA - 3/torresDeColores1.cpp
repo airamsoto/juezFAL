@@ -7,8 +7,6 @@ using namespace std;
 
 void torresDeColores (const vector <string> & colores, vector <bool> & usados, int alturaTorres, int k, vector <string> &sol) {
     for (int i = 0; i < colores.size(); i++) {
-      //  if(!usados[i]) {
-          //  usados[i] = true;
             sol[k] = colores[i];
             if(k == sol.size() - 1) {
                 for (int i = 0; i < sol.size(); i++)
@@ -19,9 +17,6 @@ void torresDeColores (const vector <string> & colores, vector <bool> & usados, i
                 
 
             } else torresDeColores (colores, usados, alturaTorres, k +1, sol);
-            
-           // usados[i] = false;
-       // }
     }
 }
 

@@ -5,19 +5,22 @@
 #include <algorithm>
 using namespace std;
 
-void resolver(vector<char> &letras, vector<char> &palabra, vector <bool> &usados, int n, int m) {
-    for (int i = 0; i < m; i++) {
-       
-        if(!usados[i]) {               
-            usados[i] = true;
-            palabra[n] = letras[i];
-            if(n == palabra.size() - 1) {
-                for (int i = 0; i < palabra.size(); i++) {
-                   cout << palabra[i];
+void resolver(vector<char> &letras, vector<char> &sol, vector <bool> &usados, int k, int m) {
+    for (int letra = 0; letra < m; letra++) {
+        if(!usados[letra]) {         
+
+            usados[letra] = true;
+            sol[k] = letras[letra];
+
+            if(k == sol.size() - 1) {
+                for (int i = 0; i < sol.size(); i++) {
+                   cout << sol[i];
                 }
                 cout << '\n';
-            } else resolver(letras, palabra,usados, n + 1, m);
-            usados[i] = false;
+
+            } else resolver(letras, sol,usados, k + 1, m);
+
+            usados[letra] = false;
         }
             
             

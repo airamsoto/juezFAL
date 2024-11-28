@@ -5,15 +5,17 @@
 #include <algorithm>
 using namespace std;
 
-void resolver(vector<char> &letras, vector<char> &palabra, int n, int m) {
-    for (int i = 0; i < m; i++) {              
-            palabra[n] = letras[i];
-            if(n == palabra.size() - 1) {
-                for (int i = 0; i < palabra.size(); i++) {
-                   cout << palabra[i];
+
+
+void resolver(vector<char> &letras, vector<char> &sol, int k, int m) {
+    for (int letra = 0; letra < m; letra++) {            
+            sol[k] = letras[letra];
+            if(k == sol.size() - 1) {
+                for (int i = 0; i < sol.size(); i++) {
+                   cout << sol[letra];
                 }
                 cout << '\n';
-            } else resolver(letras, palabra, n + 1, m);
+            } else resolver(letras, sol, k+ 1, m);
     }
     
 }
@@ -23,19 +25,6 @@ bool resuelveCaso() {
     cin >> m >> n;
     //Se consideran ´unicamente las letras del alfabeto anglosaj´on, cogi´endose las m primeras. Se garantiza que n <= m.
     if(!cin) return false;
-    /*
-    Para caso de prueba m = 3 y n = 2
-aa
-ab
-ac
-ba
-bb
-bc
-ca
-cb
-cc
-    
-    */
     vector<char> letras(m);
     for (int i = 0; i < m; i++) {
         letras[i] = 'a' + i;
