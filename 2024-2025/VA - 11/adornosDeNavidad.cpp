@@ -44,7 +44,7 @@ bool resuelveCaso() {
     {
         cin >> adornos[i].precio >> adornos[i].superficie;
     }
-        acumuladores[n - 1] = adornos[n - 1].superficie;
+    acumuladores[n - 1] = adornos[n - 1].superficie;
     for (int i = n - 2; i >= 0; i--) {
         acumuladores[i] = adornos[i].superficie + acumuladores[i + 1];
     }

@@ -49,7 +49,6 @@ bool resuelveCaso() {
     if (!haySol) {
         cout << "SIN SOLUCION\n";
     }
-
     cout << '\n';
     return true;
 }

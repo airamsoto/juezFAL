@@ -1,62 +1,74 @@
 #include <iostream>
-#include <fstream>
 #include <vector>
 #include <climits>
-#include <algorithm>
+#include <fstream>
 using namespace std;
-/*
-Comprobar relaciones y como incrementar el numero de canoas usadas una vez hay que pasar a la siguiente
 
-*/
-bool esValida (const vector <int>& personasPorCanoa, const vector<int> pesoActual, int canoa, const vector<int>& pesos, int k, int pesoMaximo,  vector<vector<int>> &sol) {
-    bool jose = true;
-
-    //falta comprobar lo de las relaciones
-    for (int i = 0; i < pesos.size(); i++)
-    {
-        for (int j = 0; j < pesos.size(); j++) {
-            
+bool esValida(const vector<int>& personasPorCanoa, const vector<int>& pesoActual, int canoa, const vector<int>& pesos, int amigo, int pesoMaximo, const vector<vector<int>>& relas) {
+    if (personasPorCanoa[canoa] >= 3 || pesoActual[canoa] + pesos[amigo] > pesoMaximo) {
+        return false;
+    }
+    for (int i = 0; i < personasPorCanoa.size(); i++) {
+        if (relas[amigo][i] == 1 && personasPorCanoa[i] > 0 && i == canoa) {
+            return false; 
         }
     }
-    
-    return personasPorCanoa[canoa] < 3 && pesoActual[canoa] + pesos[k] <= pesoMaximo;
+    return true;
 }
-void canoas (const vector <int> &pesos, const vector<vector<int>> &relas, vector<int>& pesoActual, int &numeroCanoasActual, 
-int k, int amigos,vector<int> &personasPorCanoa, int nCanoas, int pesoMaximo, int &canoasMinimas, vector<vector<int>> &sol) {
-    for(int canoa = 0; canoa < nCanoas; canoa++) {
-        if(esValida(personasPorCanoa, pesoActual, canoa, pesos, k, pesoMaximo, sol)) {
-                pesoActual[canoa] += pesos[k];
+void canoas(const vector<int>& pesos, const vector<vector<int>>& relas, vector<int>& pesoActual, int& numeroCanoasActual,
+            int amigo, int nAmigos, vector<int>& personasPorCanoa, int nCanoas, int pesoMaximo, int& canoasMinimas) {
+    for (int canoa = 0; canoa < nCanoas; ++canoa) {
+        if (esValida(personasPorCanoa, pesoActual, canoa, pesos, amigo, pesoMaximo, relas)) {
+            pesoActual[canoa] += pesos[amigo];
+            personasPorCanoa[canoa]++;
+            if (canoa >= numeroCanoasActual) {
+                numeroCanoasActual++;
+            }
 
-                if(k == sol.size() -1) {
-                    canoasMinimas = min (canoasMinimas, numeroCanoasActual);
+            if (amigo == nAmigos - 1) {
+                canoasMinimas = min(canoasMinimas, numeroCanoasActual);
+            } else {
+                canoas(pesos, relas, pesoActual, numeroCanoasActual, amigo + 1, nAmigos, personasPorCanoa, nCanoas, pesoMaximo, canoasMinimas);
+            }
 
-                } else canoas (pesos, relas, pesoActual, numeroCanoasActual, k +1, amigos, personasPorCanoa, nCanoas, pesoMaximo, canoasMinimas, sol);
-                pesoActual[canoa] -= pesos[k];
+            pesoActual[canoa] -= pesos[amigo];
+            personasPorCanoa[canoa]--;
+            if (canoa == numeroCanoasActual - 1 && personasPorCanoa[canoa] == 0) {
+                numeroCanoasActual--;
+            }
         }
-        
-
     }
 }
 
+// Resolver un caso de prueba
 void resuelveCaso() {
-    int amigos, canoas, pesoMaximo;
-    cin >> amigos >> canoas >> pesoMaximo;
-    vector <int> pesos (amigos);
-    for (int i = 0; i < amigos; i++)
-    {
+    int amigos, nCanoas, pesoMaximo;
+    cin >> amigos >> nCanoas >> pesoMaximo;
+
+    vector<int> pesos(amigos);
+    for (int i = 0; i < amigos; ++i) {
         cin >> pesos[i];
     }
-    
-    vector <vector<int>> relas (amigos, vector<int> (amigos));
-    for (int i = 0; i < amigos; i++)
-    {
-        for (int j = 0; j < amigos; j++)
-        {
+
+    vector<vector<int>> relas(amigos, vector<int>(amigos));
+    for (int i = 0; i < amigos; ++i) {
+        for (int j = 0; j < amigos; ++j) {
             cin >> relas[i][j];
         }
-        
     }
-    int pesoActual = 0, numeroCanoasActual = 0, mejorCanoas = INT_MAX;
+
+    vector<int> pesoActual(nCanoas, 0);
+    vector<int> personasPorCanoa(nCanoas, 0);
+    int numeroCanoasActual = 0;
+    int canoasMinimas = INT_MAX;
+
+    canoas(pesos, relas, pesoActual, numeroCanoasActual, 0, amigos, personasPorCanoa, nCanoas, pesoMaximo, canoasMinimas);
+
+    if (canoasMinimas == INT_MAX) {
+        cout << "IMPOSIBLE\n";
+    } else {
+        cout << canoasMinimas << "\n";
+    }
 }
 
 int main() {
@@ -64,13 +76,13 @@ int main() {
     std::ifstream in("sample.in");
     auto cinbuf = std::cin.rdbuf(in.rdbuf());
 #endif
+
     int nCasos;
     cin >> nCasos;
-    for (int i = 0; i < nCasos; i++)
-    {
+    for (int i = 0; i < nCasos; ++i) {
         resuelveCaso();
     }
-    
+
 #ifndef DOMJUDGE
     std::cin.rdbuf(cinbuf);
 #endif
