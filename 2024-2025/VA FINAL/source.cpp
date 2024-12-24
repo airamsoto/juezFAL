@@ -14,15 +14,15 @@ void coinvite(const vector<vector<int>>& datos, vector<int>& sol, vector<bool>& 
             familiarOcupado[familiar] = true;
             sol[k] = familiar;
 
-            if(sol.size() -1 == k && numeroCoincidentes <= M/3 && familiarOcupado[posTia] ) { //posibe sol
-            
+            if(sol.size() -1 == k) { //posibe sol
+                if(numeroCoincidentes <= M/3 && familiarOcupado[posTia]) {
                     if(satisfaccionActual > maximaSatisfaccion) {
                         contadorSol = 1;
                         maximaSatisfaccion = satisfaccionActual;
                     } else if (satisfaccionActual == maximaSatisfaccion) contadorSol++;
-                
 
-            } else if (numeroCoincidentes <= M/3 && satisfaccionActual + maximos[k] >= maximaSatisfaccion) coinvite (datos, sol, familiarOcupado, contadorSol, maximaSatisfaccion, satisfaccionActual, numeroCoincidentes, posTia, N, k+1, M, maximos);
+                }
+            } else if (numeroCoincidentes <= M/3 && k < M -1 && satisfaccionActual + maximos[k+1] >= maximaSatisfaccion) coinvite (datos, sol, familiarOcupado, contadorSol, maximaSatisfaccion, satisfaccionActual, numeroCoincidentes, posTia, N, k+1, M, maximos);
 
 
             if(k == familiar) numeroCoincidentes--;
@@ -39,27 +39,28 @@ bool resuelveCaso() {
     if (N == 0) return false;
     cin >> M >> T;
     vector <int> maximos (M, 0);
-    vector<vector<int>> S(N, vector<int>(M));
+    vector<vector<int>> S(M, vector<int>(N));
+    
     for (int i = 0; i < M; ++i) {
          for (int j = 0; j < N; ++j) {
             cin >> S[i][j];
-            maximos[i] = max (maximos[i], S[j][i]);
-         }
+           if(maximos[i] < S[i][j]) {
+               maximos[i] = S[i][j];
+           }
+        }
     }
-    vector<int> maximosAcumulados(M, 0);
-    maximosAcumulados[M - 1] = maximos[M - 1];
-    for (int i = M - 2; i >= 0; --i) {
-        maximosAcumulados[i] = maximos[i] + maximosAcumulados[i + 1];
+    for (int i = M-2; i >= 0; --i) {
+        maximos[i] += maximos[i+1];
     }
-    
 
     vector<int> sol(M);
     vector<bool> familiarOcupado(N, false);
     int contadorSol = 0, maximaSatisfaccion = -1, satisfaccionActual = 0, numeroCoincidentes = 0;
-    coinvite(S, sol, familiarOcupado, contadorSol, maximaSatisfaccion, satisfaccionActual, numeroCoincidentes, T, N, 0, M, maximosAcumulados);
+    coinvite(S, sol, familiarOcupado, contadorSol, maximaSatisfaccion, satisfaccionActual, numeroCoincidentes, T, N, 0, M, maximos);
 
-    if (maximaSatisfaccion >= 0) 
+    if (maximaSatisfaccion >= 0) {
         cout << maximaSatisfaccion << " " << contadorSol << '\n';
+    }
     else 
         cout << "No\n";
 
