@@ -69,7 +69,7 @@ bool resuelveCaso() {
 
 int main() {
 #ifndef DOMJUDGE
-    std::ifstream in("casos.txt");
+    std::ifstream in("sample.in");
     auto cinbuf = std::cin.rdbuf(in.rdbuf());
 #endif
 
