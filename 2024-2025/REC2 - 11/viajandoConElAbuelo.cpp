@@ -2,66 +2,58 @@
 #include <fstream>
 #include <vector>
 #include <climits>
+#include <numeric>
 #include <algorithm>
 using namespace std;
 
-//cuanto tiempo como minimo va a estar el coche sin parar 
-int tiempoMaximoEnElCoche (const vector <int> &v, int nParadas, int propuesta) {
-    int paradas = v[0]; //el valor del tiempo minimo, es el maximo del vector
-    int tiempo = v[0];
-    for (int i = 1; i < v.size(); ++i) {
-        if (tiempo + v[i] <= propuesta) {
-            tiempo += v[i];
+bool esPosible(const vector<int>& v, int p, int maxTiempo) {
+    int paradas = 0;
+    int tiempoAcumulado = 0;
+    for (int i = 0; i < v.size(); i++) {
+        if (v[i] > maxTiempo) return false;
+        if (tiempoAcumulado + v[i] > maxTiempo) {
+            paradas++;
+            tiempoAcumulado = v[i];
+            if (paradas > p) return false;
+        } else {
+            tiempoAcumulado += v[i];
         }
-        else {
-            paradas = max(paradas, tiempo);
-            tiempo = v[i];
-            --nParadas;
-        }
-        if (nParadas < 0) {
-            return propuesta;
     }
-    }
-    return paradas;
-    
+    return true;
 }
 
 bool resuelveCaso() {
-    int n, p; //siendo n el numero de veces que dividimos el camino y p el numero de paradas como maximo que estoy dispuesto a hacer
+    int n, p;
     cin >> n >> p;
-    if(n == 0 && p == 0) return false;
-    
-    int maximo = 0, sumatorio = 0, aux;
+    if (n == 0 && p == 0) return false;
+    vector<int> v(n);
     for (int i = 0; i < n; i++) {
-       // cin >> v[i]; //tiempo necesario para recorrer cada tramo
-        cin >> aux;
-        maximo = max(maximo, aux);
-        sumatorio += aux;
-    }
-    vector <int> v;
-    for (int i = maximo; i <= sumatorio; i++) {
-        v.push_back(i);
+        cin >> v[i];
     }
 
-   
+    int bajo = 1, alto = accumulate(v.begin(), v.end(), 0);
+    while (bajo < alto) {
+        int medio = (bajo + alto) / 2;
+        if (esPosible(v, p, medio)) {
+            alto = medio;
+        } else {
+            bajo = medio + 1;
+        }
+    }
 
-    cout << tiempoMaximoEnElCoche(v, p, maximo) << "\n";
-    
+    cout << bajo << endl;
     return true;
-
 }
 
 int main() {
 #ifndef DOMJUDGE
-    std::ifstream in("sample.in");  //o cambia el nombre por el fichero que te descargues
+    std::ifstream in("sample.in");
     auto cinbuf = std::cin.rdbuf(in.rdbuf());
 #endif
     while (resuelveCaso()) {}
 #ifndef DOMJUDGE
     std::cin.rdbuf(cinbuf);
-   
 #endif
 
     return 0;
 }
-
