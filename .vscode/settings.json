@@ -97,7 +97,10 @@
         "string_view": "cpp",
         "*.tcc": "cpp",
         "memory_resource": "cpp",
-        "text_encoding": "cpp"
+        "text_encoding": "cpp",
+        "__hash_table": "cpp",
+        "__node_handle": "cpp",
+        "print": "cpp"
     },
     "cmake.configureOnOpen": false,
     "C_Cpp.errorSquiggles": "enabledIfIncludesResolve",
