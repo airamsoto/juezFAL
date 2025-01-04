@@ -14,7 +14,7 @@ void vacaciones(const vector<vector<int>> &datos, int k, int n, int &costeActual
             solucionActual[k] = i;
             costeActual += datos[solucionActual[k-1]][i];
             if (k == n - 1) {
-                int total = costeActual + datos[solucionActual[k-1]][0];
+                int total = costeActual + datos[i][0];
                 if (total < mejorCoste) {
                     mejorCoste = total;
                     mejorSolucion = solucionActual;
