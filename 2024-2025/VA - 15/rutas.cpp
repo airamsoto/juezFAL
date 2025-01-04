@@ -15,9 +15,6 @@ bool esValida (const vector <vector<int>> &datos, vector <int> &sol, int k, int 
 
 void vueltaAtrasRutas (const vector <vector<int>> &datos, vector <int> &sol, vector <int> &mejorSol, vector <bool> &usada, int &satisfaccionActual, int &mejorSatisfaccion, int k, int n, const vector<int> &satisfacciones, int x) {
     for(int ruta = 0; ruta < n; ruta++) {
-        if(sol[0] == 1 && ruta == 0) {
-           // cout<< "QUESITO";
-        }
         if(!usada[ruta]) {
             if(esValida(datos, sol, k, ruta)) {
                 sol[k] = ruta;

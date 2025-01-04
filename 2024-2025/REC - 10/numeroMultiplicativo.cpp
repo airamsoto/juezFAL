@@ -8,12 +8,7 @@ int digitosMultiplicativosComplementario(int n, int producto, int cuenta) {
     if (n < 10) {
         return (producto == 1) ? cuenta + 1 : cuenta;
     } else {
-        int digito = n % 10;
-        if (digito != 0) {
-            return digitosMultiplicativosComplementario(n / 10, producto * digito, cuenta);
-        } else {
-            return digitosMultiplicativosComplementario(n / 10, 1, cuenta + ((producto == 1) ? 1 : 0));
-        }
+        
     }
 }
 
