@@ -9,30 +9,41 @@ using namespace std;
 
 
 bool resuelveCaso() {
-    int n;
-    cin >> n;
-    if(n == -1) return 0;
+    int n, l;
+    cin >> n >> l;
+    if (n == 0 && l == 0) return false;
     vector<int> v (n);
+    vector<int> sol;
     for (int i = 0; i < n; i++)
     {
         cin >> v[i];
     }
 
-    vector<long long int> acumulados (n+1, 0);
-    acumulados[n-1] = v[n-1];
-    for (int i = n-2; i >= 0; --i)
-    {
-     acumulados[i] = acumulados[i+1] + v[i];
-    }
+    int contador = 1, segmentos = 0;
+    for (int i = 1; i < n; i++) {
+
     
-    int p, pregunta;
-    cin >> p;
-    for (int i = 0; i < p; i++)
-    {
-      cin >> pregunta;
-      cout << acumulados[pregunta-1] << '\n';
+    
+       if(abs(v[i] - v[i-1]) <= 1) {
+            contador++;
+        } else contador = 1;
+        if(contador == l) {
+            sol.push_back(i - l +1);
+            segmentos++; 
+        }
     }
-    cout << "---\n";
+
+    cout << segmentos << " ";
+    for (int i = 0; i < sol.size(); i++)
+    {
+        cout << sol[i] << " ";
+    }
+    cout << '\n';
+    
+
+    
+    
+    
     
     return true;
     

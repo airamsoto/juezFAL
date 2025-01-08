@@ -1,60 +1,67 @@
-#include <fstream>
 #include <iostream>
+#include <iomanip>
+#include <fstream>
 #include <vector>
-#include <cmath>
+#include <climits>
+#include <algorithm>
+
 using namespace std;
 
-void numeroDeSuperficies(const vector<int> &v, int l) {
-    int contador = 0, actual = 1;
-    vector<int> inicios;
-
-    int inicio = -1;
-    for (int i = 0; i < v.size() - 1; i++) {
-        if (abs(v[i] - v[i + 1]) <= 1) {
-            if (actual == 1) inicio = i;
-            actual++;
-            if (actual >= l) { 
-                if (actual == l) { 
-                    contador++;
-                    inicios.push_back(inicio);
-                }
-            }
-        } else {
-            actual = 1;
-        }
-    }
-
-    cout << contador;
-    for (int inicio : inicios) {
-        cout << " " << inicio;
-    }
-    cout << '\n';
-}
 
 bool resuelveCaso() {
     int n, l;
     cin >> n >> l;
     if (n == 0 && l == 0) return false;
-
-    vector<int> v(n);
-    for (int i = 0; i < n; i++) {
+    vector<int> v (n);
+    vector<int> sol;
+    for (int i = 0; i < n; i++)
+    {
         cin >> v[i];
     }
 
-    numeroDeSuperficies(v, l);
+    int contador = 1, segmentos = 0;
+    for (int i = 1; i < n; i++) {
+
+    
+    
+       if(abs(v[i] - v[i-1]) <= 1) {
+            contador++;
+        } else contador = 1;
+        if(contador == l) {
+            sol.push_back(i - l +1);
+            segmentos++; 
+        }
+    }
+
+    cout << segmentos << " ";
+    for (int i = 0; i < sol.size(); i++)
+    {
+        cout << sol[i] << " ";
+    }
+    cout << '\n';
+    
+
+    
+    
+    
+    
     return true;
-}
+    
+} 
+
+
 
 int main() {
 #ifndef DOMJUDGE
-    ifstream in("sample.in");
-    cin.rdbuf(in.rdbuf());
+    std::ifstream in("sample.in");
+    auto cinbuf = std::cin.rdbuf(in.rdbuf());
 #endif
 
-    while (resuelveCaso()) {}
-
+ while (resuelveCaso()) {}
+  
+  
 #ifndef DOMJUDGE
-    cin.rdbuf(cin.rdbuf());
+    std::cin.rdbuf(cinbuf);
 #endif
 
     return 0;
