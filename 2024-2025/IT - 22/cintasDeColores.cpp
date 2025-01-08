@@ -1,85 +1,86 @@
-#include <fstream>
 #include <iostream>
+#include <iomanip>
+#include <fstream>
 #include <vector>
+#include <climits>
 #include <algorithm>
+
 using namespace std;
 
-struct Cinta {
-    char color;
-    int longitud;
-};
-
-pair<int, int> ordenarCintas(vector<Cinta>& cintas) {
-    int n = cintas.size();
-    int left = 0, right = n - 1, mid = 0;
-    while (mid <= right) {
-        if (cintas[mid].color == 'a') {
-            swap(cintas[left], cintas[mid]);
-            left++;
-            mid++;
-        } else if (cintas[mid].color == 'v') {
-            mid++;
-        } else { 
-            swap(cintas[mid], cintas[right]);
-            right--;
-        }
-    }
-    return {left, right + 1};
-}
-
-void mostrarResultados(const vector<Cinta>& cintas, int verdeInicio, int verdeFin) {
-    vector<int> azules, verdes, rojas;
-    for (const auto& cinta : cintas) {
-        if (cinta.color == 'a') {
-            azules.push_back(cinta.longitud);
-        } else if (cinta.color == 'v') {
-            verdes.push_back(cinta.longitud);
-        } else {
-            rojas.push_back(cinta.longitud);
-        }
-    }
-    sort(azules.begin(), azules.end());
-    sort(verdes.begin(), verdes.end());
-    sort(rojas.begin(), rojas.end());
-
-    cout << "Azules:";
-    for (int longitud : azules) cout << " " << longitud;
-    cout << '\n';
-
-    cout << "Verdes:";
-    for (int longitud : verdes) cout << " " << longitud;
-    cout << '\n';
-
-    cout << "Rojas:";
-    for (int longitud : rojas) cout << " " << longitud;
-    cout << '\n';
-}
 
 bool resuelveCaso() {
     int n;
     cin >> n;
-    if (!cin || n == 0) return false;
-
-    vector<Cinta> cintas(n);
-    for (int i = 0; i < n; i++) {
-        cin >> cintas[i].color >> cintas[i].longitud;
+    if(!cin) return false;
+    vector<int> azules;
+    vector<int> verdes;
+    vector<int> rojos;
+    char aux;
+    int num;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> aux;
+        cin >> num;
+        switch (aux) {
+            case 'r': {
+                rojos.push_back(num);
+            }
+            break;
+            case 'a': {
+                azules.push_back(num);
+            }
+            break;
+            case 'v': {
+                verdes.push_back(num);
+            }
+            break;
+        }
     }
-    auto [verdeInicio, verdeFin] = ordenarCintas(cintas);
-    mostrarResultados(cintas, verdeInicio, verdeFin);
+
+    sort (azules.begin(), azules.end());
+    sort (rojos.begin(), rojos.end());
+    sort (verdes.begin(), verdes.end());
+
+    cout << "Azules: ";
+    for (int i = 0; i < azules.size(); i++)
+    {
+        cout << azules[i] << " ";
+    }
+    cout << '\n';
+
+    cout << "Verdes: ";
+    for (int i = 0; i < verdes.size(); i++)
+    {
+        cout << verdes[i] << " ";
+    }
+    cout << '\n';
+
+    cout << "Rojas: ";
+    for (int i = 0; i < rojos.size(); i++)
+    {
+        cout << rojos[i] << " ";
+    }
+    cout << '\n';
+    
+    
     
     return true;
-}
+    
+} 
+
+
 
 int main() {
 #ifndef DOMJUDGE
-    ifstream in("sample.in");
-    cin.rdbuf(in.rdbuf());
+    std::ifstream in("sample.in");
+    auto cinbuf = std::cin.rdbuf(in.rdbuf());
 #endif
 
-    while (resuelveCaso()) {}
-
+ while (resuelveCaso()) {}
+  
+  
 #ifndef DOMJUDGE
-    cin.rdbuf(cin.rdbuf());
+    std::cin.rdbuf(cinbuf);
 #endif
 
     return 0;
