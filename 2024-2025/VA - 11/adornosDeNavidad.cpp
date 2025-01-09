@@ -12,6 +12,7 @@ using namespace std;
 
 void decoracion (const vector <tAdorno> &adornos, int presupuesto, int& precioActual, int& superficieActual, int&mejorSuperficie, vector<bool> &sol,
  int k, int n, const vector<int>& acumuladores) {
+    //COJO ADORNO
     sol[k] = true;
     precioActual+=adornos[k].precio;
     superficieActual+=adornos[k].superficie;
@@ -24,7 +25,7 @@ void decoracion (const vector <tAdorno> &adornos, int presupuesto, int& precioAc
     }
     precioActual-=adornos[k].precio;
     superficieActual-=adornos[k].superficie;
-
+    //NO COJO ADORNO
     sol[k] = false;
         if(k == n -1) {
             if(superficieActual > mejorSuperficie) {
